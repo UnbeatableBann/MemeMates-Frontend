@@ -23,3 +23,62 @@ function sendMessage() {
     let msg = document.getElementById("messageInput").value;
     socket.emit("send_message", { sender: "User", text: msg });
 }
+
+// Example: User Registration
+async function registerUser(username, email, password) {
+    const response = await fetch(`${BASE_URL}/register`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, email, password })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        alert("Registration successful! Please log in.");
+        window.location.href = "index.html";  // Redirect to login
+    } else {
+        alert("Error: " + data.error);
+    }
+}
+
+// Example: User Login
+async function loginUser(email, password) {
+    const response = await fetch(`${BASE_URL}/login`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        localStorage.setItem("token", data.token);  // Save token
+        alert("Login successful!");
+        window.location.href = "memes.html";  // Redirect to memes page
+    } else {
+        alert("Login failed: " + data.error);
+    }
+}
+
+// Example: Fetch & Display Memes
+async function fetchMemes() {
+    const response = await fetch(`${BASE_URL}/memes`);
+    const memes = await response.json();
+
+    const memeContainer = document.getElementById("meme-container");
+    memeContainer.innerHTML = "";
+
+    memes.forEach(meme => {
+        const memeCard = `<div class="meme">
+            <img src="${meme.image_url}" alt="Meme">
+            <p>${meme.caption}</p>
+        </div>`;
+        memeContainer.innerHTML += memeCard;
+    });
+}
+
+// Call function when page loads
+document.addEventListener("DOMContentLoaded", fetchMemes);
