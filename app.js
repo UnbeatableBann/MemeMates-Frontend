@@ -1,4 +1,4 @@
-const BASE_URL = "https://mememates.onrender.com";
+const BASE_URL = "https://mememates-backend.onrender.com";
 const socket = io(BASE_URL);
 
 document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
