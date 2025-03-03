@@ -11,6 +11,23 @@
         <input type="password" id="password" placeholder="Password">
         <button type="submit">Register</button>
     </form>
+    <!-- Registration Form -->
+<form onsubmit="registerUser(username.value, email.value, password.value); return false;">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Register</button>
+</form>
+
+<!-- Login Form -->
+<form onsubmit="loginUser(email.value, password.value); return false;">
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+</form>
+
     <script src="app.js"></script>
 </body>
 </html>
+
+
